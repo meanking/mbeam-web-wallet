@@ -1,0 +1,14 @@
+<div class="background" [class.blur-filter]="!isFullScreen && popupOpened">
+    <img [src]="bgUrl" class="background__bg">
+</div>
+<div class="create" [class.blur-filter]="!isFullScreen && popupOpened">
+    <img [src]="logoUrl" class="create__logo">
+    <div class="create__header-text">Scalable confidential cryptocurrency</div>
+    <ng-container *ngIf="errorState$ | async as errorState">
+        <div class="create__validator" *ngIf="errorState.gotAnError">{{errorState.errorMessage}}</div>
+    </ng-container>
+    <div class="create__create-button">
+        <app-button class="create-button" (click)="newWalletClicked()">create new wallet</app-button>
+    </div>
+    <div class="create__restore" (click)="restoreClicked()">Restore wallet</div>
+</div>

@@ -1,0 +1,73 @@
+<div class="control">
+    <div #control class="control__container" (click)="changeDropdownState($event)">
+        <div class="control__container__dot"></div>
+        <div class="control__container__dot middle"></div>
+        <div class="control__container__dot"></div>
+    </div>
+</div>
+<div class="dropdown" *ngIf="isDropdownVisible" appClickOutside (clickOutside)="onClickedOutside($event)">
+    <div class="dropdown__content">
+        <ul class="dropdown__column">
+            <li class="dropdown__item"
+                *ngIf="!isFullScreen"
+                (click)="fullViewClicked()"
+                (mouseover)="componentIcons.fullViewActualIcon = componentIcons.fullViewIconActive"
+                (mouseout)="componentIcons.fullViewActualIcon = componentIcons.fullViewIcon">
+                    <img class="dropdown__item__icon" [src]="componentIcons.fullViewActualIcon">
+                    <span class="dropdown__item__text">Full view</span>
+            </li>
+            <div class="dropdown__separator" *ngIf="!isFullScreen"></div>
+            <li class="dropdown__item" 
+                *ngIf="isFullScreen" 
+                (click)="securityModeClicked($event)"
+                (mouseover)="securityModeMouseover()"
+                (mouseout)="securityModeMouseout()">
+                        <img class="dropdown__item__icon" [src]="privacyMode ? 
+                            componentIcons.iconEnabledPrivacyActualIcon : componentIcons.iconDisabledPrivacyActualIcon">
+                        <span class="dropdown__item__text">Security mode</span>
+            </li>
+            <div class="dropdown__separator" *ngIf="isFullScreen"></div>
+            <li class="dropdown__item" 
+                (click)="paymentProofClicked($event)"
+                (mouseover)="componentIcons.proofActualIcon = componentIcons.proofIconActive"
+                (mouseout)="componentIcons.proofActualIcon = componentIcons.proofIcon">
+                    <img class="dropdown__item__icon" [src]="componentIcons.proofActualIcon">
+                    <span class="dropdown__item__text">Payment proof</span>
+            </li>
+            <!-- <li class="dropdown__item"
+                (mouseover)="componentIcons.exportActualIcon = componentIcons.exportIconActive"
+                (mouseout)="componentIcons.exportActualIcon = componentIcons.exportIcon">
+                    <img class="dropdown__item__icon" [src]="componentIcons.exportActualIcon">
+                    <span class="dropdown__item__text">Export data</span>
+            </li>
+            <li class="dropdown__item"
+                (mouseover)="componentIcons.importActualIcon = componentIcons.importIconActive"
+                (mouseout)="componentIcons.importActualIcon = componentIcons.importIcon">
+                    <img class="dropdown__item__icon" [src]="componentIcons.importActualIcon">
+                    <span class="dropdown__item__text">Import data</span>
+            </li> -->
+            <li class="dropdown__item" 
+                (click)="buyBeamClicked()"
+                (mouseover)="componentIcons.buyBeamActualIcon = componentIcons.buyBeamIconActive"
+                (mouseout)="componentIcons.buyBeamActualIcon = componentIcons.buyBeamIcon">
+                    <img class="dropdown__item__icon" [src]="componentIcons.buyBeamActualIcon">
+                    <span class="dropdown__item__text">Where to buy Beam</span>
+            </li>
+            <li class="dropdown__item"
+                (click)="settingsClicked()"
+                (mouseover)="componentIcons.settingsActualIcon = componentIcons.settingsIconActive"
+                (mouseout)="componentIcons.settingsActualIcon = componentIcons.settingsIcon">
+                    <img class="dropdown__item__icon" [src]="componentIcons.settingsActualIcon">
+                    <span class="dropdown__item__text">Settings</span>
+            </li>
+            <div class="dropdown__separator"></div>
+            <li class="dropdown__item"
+                (click)="logoutClicked()"
+                (mouseover)="componentIcons.logoutActualIcon = componentIcons.logoutIconActive"
+                (mouseout)="componentIcons.logoutActualIcon = componentIcons.logoutIcon">
+                    <img class="dropdown__item__icon" [src]="componentIcons.logoutActualIcon">
+                    <span class="dropdown__item__text">Logout</span>
+            </li>
+        </ul>
+    </div>
+</div>

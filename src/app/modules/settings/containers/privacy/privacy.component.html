@@ -1,0 +1,34 @@
+<div class="privacy" [class.blur-filter]="popupOpened">
+    <div class="privacy__header">
+        <div class="menu-control-wrapper">
+            <img class="privacy__header__menu" (click)="backClicked($event)" [src]="iconBack"/>
+        </div>
+        <div class="title-wrapper">
+            <div class="privacy__header__title">PRIVACY</div>
+        </div>
+        <div class="save-addr-control-wrapper">
+        </div>
+    </div>
+
+    <div class="privacy__container">
+        <div class="privacy__container__ask-pass">
+            <span class="privacy-item-title">Ask for password on every Send</span>
+            <mat-slide-toggle class="privacy-item-slide"
+                            (change)="checkPasswordToggle($event)" 
+                            [checked]="isCheckedPassword"></mat-slide-toggle>
+        </div>
+        <div class="privacy__container__complete-vf" 
+                *ngIf="verificatedSettingLoaded && !verificatedSettingState"
+                (click)="completeVerificationClicked($event)">
+            <span class="privacy-item-title">Complete seed verification</span>
+        </div>
+        <div class="privacy__container__change-pass" (click)="changePasswordClicked($event)">
+            <span class="privacy-item-title">Change password</span>
+        </div>
+        <!-- <div class="privacy__container__show-owner-key" (click)="showOwnerKeyClicked($event)">
+            <span class="privacy-item-title">Show owner key</span>
+        </div> -->
+    </div>
+    
+    <div class="privacy__top-gradient"></div>
+</div>

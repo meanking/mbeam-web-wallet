@@ -1,0 +1,71 @@
+<div class="generate" [class.blur-filter]="!isFullScreen && popupOpened">
+    <ng-container *ngIf="!isFullScreen">
+        <div class="generate__header">
+            <div class="menu-control-wrapper">
+                <img class="generate__header__menu" (click)="backClicked($event)" [src]="iconBack"/>
+            </div>
+            <div class="title-wrapper">
+                <div class="generate__header__title">SEED PHRASE</div>
+            </div>
+            <div class="save-addr-control-wrapper"></div>
+        </div>
+    
+        <div class="generate__content">
+            <div class="generate__content__first-row">
+                Your seed phrase is the access key to all the funds in 
+                your wallet. Print or write down the phrase to keep it in 
+                a safe or in a locked vault. Without the phrase you will 
+                not be able to recover your money.
+            </div>
+            <div class="generate__content__seed">
+                <div class="generate__content__seed__item noselect" *ngFor="let item of seedState">
+                    <div class="generate__content__seed__item__circle"> {{i + 1}} </div>
+                    <span class="generate__content__seed__item__seed"> {{item}} </span>
+                </div>
+            </div>
+            <div class="generate__content__controls">
+                <app-button class="generate__content__controls__verification-button"
+                            (click)="completeVerificationClicked($event)">
+                    complete verification
+                </app-button>
+                <app-button class="generate__content__controls__later-button"
+                            *ngIf="componentSettings.isFromFTF"
+                            (click)="laterClicked($event)">
+                    I will do it later
+                </app-button>
+            </div>
+        </div>
+    
+        <div class="generate__top-gradient"></div>
+    </ng-container>
+    <ng-container *ngIf="isFullScreen">
+        <div class="generate__top-content">
+            <div class="generate__top-content__header">Seed phrase</div>
+            <div class="generate__top-content__text">
+                Your seed phrase is the access key to all the funds in your wallet. After successful verification, you won’t be able to see
+                your seed phrase in settings. Print or write down the phrase to keep it in a safe or in a locked vault. Without the phrase 
+                you will not be able to recover your money.
+            </div>
+        </div>
+        <div class="generate__mid-content">
+            <div class="generate__mid-content__item noselect" *ngFor="let item of seedState; let i = index">
+                <div class="generate__mid-content__item__circle"> {{i + 1}} </div>
+                <span class="generate__mid-content__item__seed"> {{item}} </span>
+            </div>
+        </div>
+        <div class="generate__bottom-content">
+            <app-button class="generate__bottom-content__back-button" (click)="backClicked($event)">back</app-button>
+            <app-button class="generate__bottom-content__later-button"
+                        *ngIf="componentSettings.isFromFTF"
+                        (click)="laterClicked($event)">
+                I will do it later
+            </app-button>
+            <app-button class="generate__bottom-content__verification-button"
+                        (click)="completeVerificationClicked($event)">
+                complete verification
+            </app-button>
+        </div>
+    </ng-container>
+</div>
+
+<div *ngIf="isFullScreen && popupOpened" class="full-popup-opened"></div>

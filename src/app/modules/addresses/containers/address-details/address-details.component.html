@@ -1,0 +1,64 @@
+<div class="details">
+    <div class="details__header">
+        <div class="back-control-wrapper">
+            <img class="details__header__back" (click)="backClicked()" [src]="iconBack"/>
+        </div>
+        <div class="title-wrapper">
+            <div class="details__header__title">DETAILS</div>
+        </div>
+        <div class="right-wrapper"></div>
+    </div>
+    <ng-container *ngIf="address$ | async as data">
+        <div class="details__container">
+            <div class="details__container__name">No name</div>
+            <div class="details-title">ADDRESS</div>
+            <div class="details__container__address">{{data.address}}</div>
+            <div class="details-title"> {{data.expired ? 'EXPIRED' : 'EXPIRATION DATE'}}</div>
+            <div class="details__container__expiring">
+                {{data.duration === 0 ? 'never' : (data.create_time + data.duration) * 1000 | date:'d MMM y | HH:mm' }}
+            </div>
+        </div>
+        <div class="details__transactions" *ngIf="transactions$ | async as transactions">
+            <ng-container *ngIf="transactions.length > 0">
+                <div class="details__transactions__title">
+                    <span class="transactions-title">TRANSACTIONS LIST</span>
+                </div>
+                <div *ngFor="let item of transactions" class="transaction-item">
+                    <div class="details__transactions__receive" *ngIf="item.status_string == 'received'">
+                        <div class="details__transactions__receive__value">
+                            <img class="tr-receive-icon" [src]="iconReceived"/>
+                            <span class="tr-receive-text">Receive</span>
+                            <span class="tr-receive-value">+ {{ item.value | beam:'1.0-9'}} BEAM</span>        
+                        </div>
+                        <div class="details__transactions__receive__status">received</div>
+                    </div>
+                    <div class="details__transactions__receive" *ngIf="item.status_string == 'receiving'">
+                        <div class="details__transactions__receive__value">
+                            <img class="tr-receive-icon" [src]="iconReceived"/>
+                            <span class="tr-receive-text">Receive</span>
+                            <span class="tr-receive-value">+ {{ item.value | beam:'1.0-9'}} BEAM</span>        
+                        </div>
+                        <div class="details__transactions__receive__status">receiving</div>
+                    </div>
+                    <div class="details__transactions__send" *ngIf="item.status_string == 'sent'">
+                        <div class="details__transactions__send__value">
+                            <img class="tr-send-icon" [src]="iconSent">
+                            <span class="tr-send-text">Send</span>
+                            <span class="tr-send-value">- {{ item.value | beam:'1.0-9'}} BEAM</span>        
+                        </div>
+                        <div class="details__transactions__send__status">sent</div>
+                    </div>
+                    <div class="details__transactions__send" *ngIf="item.status_string == 'sending'">
+                        <div class="details__transactions__send__value">
+                            <img class="tr-send-icon" [src]="iconSent">
+                            <span class="tr-send-text">Send</span>
+                            <span class="tr-send-value">- {{ item.value | beam:'1.0-9'}} BEAM</span>        
+                        </div>
+                        <div class="details__transactions__send__status">sending</div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </ng-container>
+    <div class="details__top-gradient"></div>
+</div>

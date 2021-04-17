@@ -1,0 +1,21 @@
+<div class="clear" appClickOutside (clickOutside)="closePopup()">
+    <div class="clear__title">Clear data</div>
+    <div class="clear__content">
+        <div class="clear__content__transactions" (click)="clearTransactionsClicked()">
+            <div>Delete all transactions</div>
+            <img class="clear-data-checkbox" [src]="deleteTransactionsChecked ? iconFilledCheckbox : iconCheckbox">
+        </div>
+        <div class="clear__content__logs" (click)="clearLogsClicked()">
+            <div>Delete logs</div>
+            <img class="clear-data-checkbox" [src]="deleteLogsChecked ? iconFilledCheckbox : iconCheckbox">
+        </div>
+    </div>
+    <div class="clear__controls">
+        <div class="clear__controls__cancel">
+            <app-button class="copy-button" (click)="cancelClicked($event)" >cancel</app-button>
+        </div>
+        <div class="clear__controls__remove">
+            <app-button class="copy-button" (click)="submit($event)" >delete</app-button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+@import 'ui-mixins';
+
+:host {
+    display: block;
+    z-index: 100;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+
+    &__beta {
+        @include normal-text;
+        height: 20px;
+        width: 100%;
+        background-color: #39fdf2;
+        font-family: 'ProximaNovaSemiBold', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.5;
+        text-align: center;
+        color: #042548;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      
+        &__icon {
+            width: 14px;
+            height: 14px;
+            margin-right: 5px;
+        }
+    }
+
+    &__container {
+        height: 50px;
+        width: 100%;
+        background: #042548;
+        align-items: center;
+        display: flex;
+
+        &__full-sc-control {
+            width: 20px;
+            height: 20px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+    }
+}
+
+.header-status-wrapper {
+    width: 50%;
+    flex-shrink: 1;
+    display: flex;
+}
+
+.header-logo-wrapper {
+    flex-shrink: 0;
+}
+
+.header-full-wrapper {
+    width: 50%;
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: row-reverse;
+}

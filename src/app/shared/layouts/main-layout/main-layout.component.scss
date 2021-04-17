@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 400px) {
+  :host {
+    height: 100%;
+  }
+}

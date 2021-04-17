@@ -1,0 +1,322 @@
+@import 'ui-mixins';
+@import './styles';
+
+:host {
+    flex: 1 0 auto;
+    background-color: #042548;
+}
+
+
+.content-text {
+    @include normal-text;
+    margin-left: 20px;
+    max-width: 275px;
+    font-family: 'ProximaNova', sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.generate {
+    min-height: 530px;
+    display: flex;
+    flex-direction: column;
+
+    &__top-gradient {
+        position: absolute;
+        width: 100%;
+        height: 100px;
+        background-image: linear-gradient(to top, rgba(3, 91, 143, 0), #035b8f);
+        z-index: 1;
+    }
+
+    &__header {
+        margin-top: 20px;
+        display: flex;
+        z-index: 10;
+        width: 100%;
+
+        &__menu {
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        &__title {
+            @include normal-text;
+            font-family: 'ProximaNovaSemiBold', sans-serif;
+            margin: 0 auto;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-align: center;
+        }
+    }
+
+    &__content {
+        z-index: 10;
+        margin-top: 25px;
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+
+        &__first-row {
+            @include normal-text;
+            max-width: 335px;
+            font-family: 'ProximaNova', sans-serif;
+            font-size: 14px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        &__seed {
+            display: flex;
+            width: 330px;
+            margin: 20px auto 0 auto;
+            flex-wrap: wrap;
+            align-content: space-between;
+            justify-content: space-between;
+
+            &__item {
+                margin-top: 10px;
+                height: 32px;
+                min-width: 140px;
+                border-radius: 30px;
+                border: solid 1px #1c435b;
+                display: flex;
+                align-items: center;
+
+                &__circle {
+                    @include normal-text;
+                    margin-left: 9px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 20px;
+                    width: 20px;
+                    height: 20px;
+                    background-color: #1c435b;
+                    opacity: 0.5;
+                    font-family: 'SFProDisplayRegular', sans-serif;
+                    font-size: 10px;
+                    text-align: center;
+                    color: #ffffff;
+                }
+
+                &__seed {
+                    @include normal-text;
+                    font-family: 'ProximaNova', sans-serif;
+                    margin-left: 20px;
+                    font-size: 14px;
+                    line-height: 1.29;
+                    text-align: center;
+                    color: #ffffff;
+                }
+            }
+        }
+
+        &__controls {
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+
+            &__verification-button {
+                margin-top: 20px;
+                
+                @include ui-button($btn-open-wallet, $btn-full-verification) {
+                    font-family: 'ProximaNovaBold', sans-serif;
+                    font-size: 14px;
+                    width: 253px;
+                    height: 44px;
+                }
+        
+                @include ui-button-verification-icon()
+            }
+
+            &__later-button {
+                margin-top: 10px;
+                
+                @include ui-button($btn-full-back, $btn-full-lg) {
+                    font-family: 'ProximaNovaBold', sans-serif;
+                    font-size: 14px;
+                    width: 253px;
+                    height: 44px;
+                }
+        
+                @include ui-button-later-icon()
+            }
+        }
+    }
+}
+
+@media (min-width: 400px) {
+    .generate {
+        height: 100%;
+            
+        &__top-content {
+            margin-top: 50px;
+
+            &__header {
+                @include normal-text;
+                font-family: 'ProximaNovaSemiBold', sans-serif;
+                font-size: 36px;
+                font-weight: 600;
+                text-align: center;
+                color: #ffffff;
+            }
+
+            &__text {
+                @include normal-text;
+                width: 730px;
+                margin: 30px auto 0 auto;
+                font-family: 'ProximaNova', sans-serif;
+                font-size: 14px;
+                line-height: 1.29;
+                text-align: center;
+                color: #ffffff;
+            }
+        }
+
+        &__mid-content {
+            display: flex;
+            width: 730px;
+            height: 155px;
+            margin: 75px auto 0 auto;
+            flex-wrap: wrap;
+            align-content: space-between;
+            justify-content: space-between;
+
+            &__item {
+                height: 38px;
+                min-width: 160px;
+                border-radius: 30px;
+                border: solid 1px #1c435b;
+                display: flex;
+                align-items: center;
+
+                &__circle {
+                    @include normal-text;
+                    margin-left: 9px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 20px;
+                    width: 20px;
+                    height: 20px;
+                    background-color: #1c435b;
+                    opacity: 0.5;
+                    font-family: 'SFProDisplayRegular', sans-serif;
+                    font-size: 10px;
+                    text-align: center;
+                    color: #ffffff;
+                }
+
+                &__seed {
+                    @include normal-text;
+                    font-family: 'ProximaNova', sans-serif;
+                    margin-left: 30px;
+                    font-size: 14px;
+                    line-height: 1.29;
+                    text-align: center;
+                    color: #ffffff;
+                }
+            }
+        }
+
+        &__bottom-content {
+            margin: auto auto 143px auto;
+            display: flex;
+            flex-direction: row;
+
+            &__verification-button {
+                margin-left: 20px;
+                
+                @include ui-button($btn-open-wallet, $btn-full-verification) {
+                    font-size: 14px;
+                    width: 220px;
+                    height: 38px;
+                }
+        
+                @include ui-button-verification-icon()
+            }
+
+            &__later-button {
+                margin-left: 20px;
+                
+                @include ui-button($btn-full-back, $btn-full-lg) {
+                    font-size: 14px;
+                    width: 179px;
+                    height: 38px;
+                }
+        
+                @include ui-button-later-icon()
+            }
+
+            &__back-button {
+                
+                @include ui-button($btn-full-back, $btn-full-sm) {
+                    font-size: 14px;
+                    width: 117px;
+                    height: 38px;
+                }
+        
+                @include ui-button-back-icon()
+            }
+        }
+    }
+}
+
+.content-header {
+    @include normal-text;
+    opacity: 0.5;
+    font-family: 'ProximaNova', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+.menu-control-wrapper {
+    width: 50%;
+    flex-shrink: 1;
+    display: flex;
+}
+
+.title-wrapper {
+    flex-shrink: 0;
+}
+
+.save-addr-control-wrapper {
+    width: 50%;
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
+}
+
+.generate.blur-filter {
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
+}
+
+.full-popup-opened {
+    background-color: rgba(4, 37, 72, .5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+}

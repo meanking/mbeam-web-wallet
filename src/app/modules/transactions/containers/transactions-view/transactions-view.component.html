@@ -1,0 +1,56 @@
+<div class="transactions" [class.blur-filter]="modalOpened">
+    <div class="transactions__header">
+        <div class="menu-control-wrapper">
+            <img class="transactions__header__menu" (click)="backClicked($event)" [src]="iconBack"/>
+        </div>
+        <div class="title-wrapper">
+            <div class="transactions__header__title">TRANSACTIONS</div>
+        </div>
+        <div class="save-addr-control-wrapper"></div>
+    </div>
+
+    <div class="transactions__list">
+        <div class="transactions__list__header">
+            <div class="transactions__list__header__title">TRANSACTIONS</div>
+            <div class="transactions__list__header__addr-type-selector">
+                <span class="dropdown-header" (click)="changeDropdownState($event)">
+                    <span>{{trSelectorActiveTitle}}</span>
+                    <img src="" class="dropdown-header__icon" [src]="iconDrop">
+                </span>
+                <div class="dropdown" *ngIf="isDropdownVisible" appClickOutside (clickOutside)="onClickedOutside()">
+                    <div class="dropdown__content">
+                        <ul class="dropdown__column">
+                            <li class="dropdown__item"
+                                    [class.active]="trSelectorTitles.ALL === trSelectorActiveTitle" 
+                                    (click)="selectAllItem()"> 
+                                {{trSelectorTitles.ALL}} 
+                            </li>
+                            <li class="dropdown__item"
+                                    [class.active]="trSelectorTitles.IN_PROGRESS === trSelectorActiveTitle" 
+                                    (click)="selectInProgressItem()"> 
+                                {{trSelectorTitles.IN_PROGRESS}} 
+                            </li>
+                            <li class="dropdown__item"
+                                    [class.active]="trSelectorTitles.SENT === trSelectorActiveTitle" 
+                                    (click)="selectSentItem()"> 
+                                {{trSelectorTitles.SENT}} 
+                            </li>
+                            <li class="dropdown__item"
+                                    [class.active]="trSelectorTitles.RECEIVED === trSelectorActiveTitle" 
+                                    (click)="selectReceivedItem()"> 
+                                {{trSelectorTitles.RECEIVED}} 
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="transactions__list__items transactions-container" *ngIf="transactions$ | async as transactions">
+            <div class="transaction-item" *ngFor="let item of transactions">
+                <app-transaction-element [transaction]="item"></app-transaction-element>
+            </div>
+        </div>
+    </div>
+    
+    <div class="transactions__top-gradient"></div>
+</div>

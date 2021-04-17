@@ -1,0 +1,306 @@
+@import 'ui-mixins';
+@import './styles';
+
+:host {
+    flex: 1 0 auto;
+    background-color: #042548;
+}
+
+.send {
+    min-height: 530px;
+    display: flex;
+    flex-direction: column;
+
+    &__top-gradient {
+        position: absolute;
+        width: 100%;
+        height: 100px;
+        background-image: linear-gradient(to top, rgba(218, 104, 245, 0), rgba(218, 104, 245, 0.5));
+        z-index: 1;
+    }
+
+    &__header {
+        margin-top: 20px;
+        display: flex;
+        z-index: 10;
+        width: 100%;
+
+        &__back {
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        &__title {
+            @include normal-text;
+            font-family: 'ProximaNovaSemiBold', sans-serif;
+            margin: 0 auto;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-align: center;
+        }
+    }
+
+    &__progress {
+        display: flex;
+        margin: 5px auto 0 auto;
+        z-index: 10;
+
+        &__full {
+            border-radius: 50px;
+            margin-right: 5px;
+            width: 4px;
+            height: 4px;
+            background-color: #ffffff;
+        }
+
+        &__empty {
+            margin-right: 5px;
+            border-radius: 50px;
+            width: 4px;
+            height: 4px;
+            opacity: .4;
+            background-color: #ffffff;
+        }
+    }
+
+    &__container {
+        z-index: 10;
+        display: flex;
+        color: #ffffff;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 20px;
+        flex-grow: 1; 
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            width:calc(100% - 20px);
+
+            &__title-amount {
+                @include normal-text;
+                margin-top: 30px;
+                font-family: 'ProximaNovaBold', sans-serif;
+                opacity: 0.5;
+                font-size: 14px;
+                font-weight: bold;
+                letter-spacing: 1px;
+                color: #ffffff;
+            }
+
+            &__title-fee {
+                @include normal-text;
+                margin-top: 30px;
+                font-family: 'ProximaNovaBold', sans-serif;
+                opacity: 0.5;
+                font-size: 14px;
+                font-weight: bold;
+                letter-spacing: 1px;
+                color: #ffffff;
+            }
+
+            &__input-groth,
+            &__input-comment,
+            &__input {
+                @include normal-text;
+                background: rgba(255, 255, 255, 0);
+                border: none;
+                width: 259px;
+                font-family: 'ProximaNovaSemibold', sans-serif;
+                border-bottom: 1px solid rgba(255, 255, 255, .3);
+                font-size: 18px;
+                font-weight: 600;
+                letter-spacing: 0.34px;
+                color: #c061e0;
+                resize:none;
+                max-height: 40px;
+                margin-top: 10px;
+            }
+
+            &__input-groth {
+                width: 245px;
+            }
+
+            &__input-comment {
+                @include normal-text;
+                font-family: 'ProximaNova', sans-serif;
+                font-size: 14px;
+                color: #ffffff;
+                width: 335px;
+            }
+
+            &__input-groth:focus,
+            &__input:focus {
+                @include normal-text;
+                font-family: 'ProximaNovaSemibold', sans-serif;
+                outline-width: 0;
+                font-size: 18px;
+                font-weight: 600;
+                letter-spacing: 0.34px;
+                color: #c061e0;
+            }
+
+            &__input-comment:focus {
+                @include normal-text;
+                font-family: 'ProximaNova', sans-serif;
+                outline-width: 0;
+                font-size: 14px;
+                color: #ffffff;
+            }
+
+            &__input-groth::placeholder,
+            &__input-comment::placeholder,
+            &__input::placeholder {
+                @include normal-text;
+                font-family: 'ProximaNova', sans-serif;
+                font-size: 14px;
+                color: rgba(255, 255, 255, .3);
+            }
+
+            &__input.incorrect-amount {
+                border-bottom: 2px solid #ff625c;
+                color: #ff625c;
+            }
+    
+            &__input.incorrect-amount:focus,
+            &__input.incorrect-amount::placeholder {
+                color: #ff625c;
+            }
+
+            &__amount-validator {
+                @include normal-text;
+                margin-top: 10px;
+                font-family: 'ProximaNova', sans-serif;
+                font-size: 13px;
+                line-height: 1.23;
+                color: #ff625c;
+            }
+
+            &__fee-validator {
+                @include normal-text;
+                margin-top: 5px;
+                font-family: 'ProximaNova', sans-serif;
+                font-size: 13px;
+                line-height: 1.23;
+                color: #ff625c;
+            }
+
+            &__currency {
+                @include normal-text;
+                margin-left: 23px;
+                font-size: 16px;
+                letter-spacing: 2.4px;
+                text-align: right;
+                color: #ffffff;
+            }
+
+            &__info {
+                @include normal-text;
+                width: 335px;
+                margin-top: 30px;
+                margin-bottom: 10px;
+                font-family: 'ProximaNovaIT', sans-serif;
+                font-size: 14px;
+                opacity: .4;
+                text-align: center;
+                color: #ffffff;
+            }
+        }
+    }
+}
+
+.controls {
+    margin: auto auto 20px auto;
+    &__button {
+        @include ui-button($btn-send, $btn-md) {
+        }
+
+        @include ui-button-next-icon()
+    }
+
+    &__button.disabled {
+        @include ui-button($btn-send, $btn-md) {
+            opacity: 0.2;
+            cursor: default;
+        }
+    }
+}
+
+.incorrect {
+    border-bottom: 2px solid #ff625c;
+    color: #ff625c;
+}
+
+.incorrect:focus {
+    color: #ff625c;
+}
+
+.total {
+    display: flex;
+    flex-direction: row;
+    max-width: 335px;
+    margin-top: 30px;
+
+    &__container {
+        &__header {
+            @include normal-text;
+            font-family: 'ProximaNovaBold', sans-serif;
+            opacity: 0.5;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+
+        &__value {
+            @include normal-text;
+            margin-top: 10px;
+            font-family: 'ProximaNovaBold', sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+    }
+
+    &__add-all {
+        margin-left: auto;
+        //margin: auto auto 20px auto;
+        
+        @include ui-button($btn-add-all, $btn-sm) {
+        }
+
+        @include ui-button-add-all-icon()
+    }
+}
+
+.send-form-cl {
+    display: flex;
+	flex-direction: column;
+    flex: 1;
+}
+
+.send-button {
+    @include ui-button($btn-send, $btn-md) {
+        margin-right: 7px;
+    }
+}
+
+.back-control-wrapper {
+    width: 50%;
+    flex-shrink: 1;
+    display: flex;
+}
+
+.title-wrapper {
+    flex-shrink: 0;
+}
+
+.right-wrapper {
+    width: 50%;
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: row-reverse;
+}

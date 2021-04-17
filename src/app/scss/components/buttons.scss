@@ -1,0 +1,639 @@
+@import './styles';
+
+/// Creates a button with predefined or custom theme
+///
+/// @group UI-Buttons
+///
+/// @param {String} $theme [$btn-dark-blue] - theme name
+/// @param {String} $size [$btn-md] - size
+/// @param {Bool} $with-icon [false] - is button contain icon flag
+
+@mixin ui-button($theme: $btn-receive, $size: $btn-md, $rounded: true) {
+
+  ::ng-deep {
+    appearance: none;
+
+    button {
+      @if ($theme == $btn-send) {
+        background-color: #da68f5;
+        color: #032e49;
+
+        &:not([disabled]) {
+          &:hover,
+          &:active {
+            background-color: #da68f9;
+          }
+        }
+      }
+
+      @if ($theme == $btn-receive) {
+        background-color: #0bccf7;
+        color: #032e49;
+
+        &:not([disabled]) {
+          &:hover,
+          &:active {
+            background-color: #0bccf7;
+          }
+        }
+      }
+
+      @if ($theme == $btn-open-wallet) {
+        background-color: #00f6d2;
+        color: #032e49;
+
+        &:not([disabled]) {
+          &:hover,
+          &:active {
+            background-color: #00f6d2;
+          }
+        }
+      }
+
+      @if ($theme == $btn-show-qr) {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: #032e49;
+
+        &:not([disabled]) {
+          &:hover,
+          &:active {
+            background-color: rgba(255, 255, 255, 0.05);
+          }
+        }
+      }
+
+      @if ($theme == $btn-full-back) {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+
+        &:not([disabled]) {
+          &:hover,
+          &:active {
+            background-color: rgba(255, 255, 255, 0.1);
+          }
+        }
+      }
+
+      @if ($theme == $btn-cancel) {
+        background-color: rgba(255, 255, 255, 0.07);
+        color: #ffffff;
+
+        &:not([disabled]) {
+          &:hover,
+          &:active {
+            background-color: rgba(255, 255, 255, 0.07);
+          }
+        }
+      }
+
+      @if ($theme == $btn-ok) {
+        background-color: #00f6d2;
+        color: #032e49;
+
+        &:not([disabled]) {
+          &:hover,
+          &:active {
+            background-color: #00f6d2;
+          }
+        }
+      }
+
+      @if ($theme == $btn-add-all) {
+        background-color: rgba(255, 255, 255, 0.0);
+        color: #da68f5;
+        border: solid 1px #da68f5;
+
+        &:not([disabled]) {
+          &:hover,
+          &:active {
+            background-color: rgba(255, 255, 255, 0.0);
+          }
+        }
+      }
+
+      @if($size == $btn-full-xsm) {
+        height: 38px;
+        width: 117px;
+      }
+
+      @if($size == $btn-full-sm) {
+        height: 38px;
+        width: 123px;
+      }
+
+      @if($size == $btn-full-md) {
+        height: 38px;
+        width: 138px;
+      }
+
+      @if($size == $btn-full-understand) {
+        height: 38px;
+        width: 166px;
+      }
+
+      @if($size == $btn-full-lg) {
+        height: 38px;
+        width: 171px;
+      }
+
+      @if($size == $btn-full-xlg) {
+        height: 38px;
+        width: 198px;
+      }
+
+      @if($size == $btn-full-verification) {
+        height: 38px;
+        width: 220px;
+      }
+
+      @if($size == $btn-sm) {
+        height: 36px;
+        width: 117px;
+      }
+
+      @if($size == $btn-nssm) {
+        height: 44px;
+        width: 141px;
+      }
+
+      @if($size == $btn-md) {
+        height: 44px;
+        width: 164px;
+      }
+
+      @if($size == $btn-nsmd) {
+        height: 44px;
+        width: 189px;
+      }
+
+      @if($size == $btn-lg) {
+        height: 44px;
+        width: 253px;
+      }
+    }
+
+    ::ng-deep {
+
+      button {
+        @if($rounded == $btn-rounded) {
+          border-radius: 50px;
+        }
+
+        transition: background-color .1s ease-out;
+        @content;
+      }
+    }
+
+  }
+}
+
+@mixin common-button-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+@mixin common-button-icon {
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+
+@mixin common-button-text {
+  margin-left: 10px;
+  font-family: 'ProximaNovaBold', sans-serif;
+}
+
+@mixin ui-button-receive-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/shared/components/button/ic-receive-blue.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+      }
+    }
+  }
+}
+
+@mixin ui-button-create-password-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/shared/components/button/ic-receive-blue.svg');
+        transform: rotate(270deg);
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+      }
+    }
+  }
+}
+
+@mixin ui-button-send-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/shared/components/button/ic-send-blue.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+      }
+    }
+  }
+}
+
+@mixin ui-button-next-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/shared/components/button/ic-send-blue-copy.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+      }
+    }
+  }
+}
+
+@mixin ui-button-later-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/modules/receive/containers/receive/icon-back.svg');
+        transform: rotate(180deg);
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+      }
+    }
+  }
+}
+
+@mixin ui-button-verification-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/modules/first-time-flow/containers/ftf-view-seed/icon-recovery.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+      }
+    }
+  }
+}
+
+@mixin ui-button-open-wallet-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        width: 15px;
+        height: 15px;
+        background: center / contain no-repeat url('/assets/images/modules/wallet/containers/login/icon-wallet-small.png');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+      }
+    }
+  }
+}
+
+@mixin ui-button-create-wallet-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/modules/first-time-flow/containers/ftf-create/icon-add-blue.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+      }
+    }
+  }
+}
+
+@mixin ui-button-generate-seed-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/modules/first-time-flow/containers/ftf-generate-seed/icon-recovery.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+      }
+    }
+  }
+}
+
+@mixin ui-button-copy-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/modules/receive/containers/receive/icon-copy-blue.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+      }
+    }
+  }
+}
+
+@mixin ui-button-qr-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/modules/receive/containers/receive/icon-qr.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+      }
+    }
+  }
+}
+
+@mixin ui-button-add-all-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/modules/send/containers/send-amount/icn-send-pink.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+        margin-left: 16px;
+      }
+    }
+  }
+}
+
+@mixin ui-button-change-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/modules/send/containers/send-addresses/icon-change.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+        margin-left: 16px;
+      }
+    }
+  }
+}
+
+@mixin ui-button-cancel-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/modules/send/components/confirmation-popup/icon-cancel-copy.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+        margin-left: 16px;
+      }
+    }
+  }
+}
+
+@mixin ui-button-ok-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/modules/send/components/confirmation-popup/icon-done.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+        margin-left: 16px;
+      }
+    }
+  }
+}
+
+@mixin ui-button-restore-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/modules/wallet/containers/restore/icon-restore-blue.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+        margin-left: 16px;
+      }
+    }
+  }
+}
+
+@mixin ui-button-save-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/modules/settings/components/report-popup/icon-save.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+        margin-left: 16px;
+      }
+    }
+  }
+}
+
+@mixin ui-button-back-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/modules/receive/containers/receive/icon-back.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+        margin-left: 14px;
+      }
+    }
+  }
+}
+
+@mixin ui-button-remove-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/modules/settings/components/remove-wallet-popup/ic-delete-dark.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+        margin-left: 14px;
+      }
+    }
+  }
+}
+
+@mixin ui-button-proof-details-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/shared/components/table/icon-proof-details.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+@mixin ui-button-proof-copy-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/shared/components/table/icon-proof-copy.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+@mixin ui-button-return-icon {
+  ::ng-deep {
+    .ui-button__inner-wrapper {
+      @include common-button-wrapper;
+
+      .ui-button__icon {
+        background: url('/assets/images/modules/first-time-flow/components/return-to-seed-popup/icon-return-popup.svg');
+        @include common-button-icon;
+
+        @content;
+      }
+
+      .ui-button__text {
+        @include common-button-text;
+        margin-left: 10px;
+      }
+    }
+  }
+}

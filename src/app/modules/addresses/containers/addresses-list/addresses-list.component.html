@@ -1,0 +1,66 @@
+<div class="addresses" [class.blur-filter]="!isFullScreen && (modalOpened || popupOpened)">
+    <ng-container *ngIf="!isFullScreen">
+        <div class="addresses__header">
+            <div class="menu-control-wrapper">
+                <img class="addresses__header__menu" (click)="sideMenuClicked($event)" [src]="iconMenu"/>
+            </div>
+            <div class="title-wrapper">
+                <div class="addresses__header__title">ADDRESSES</div>
+            </div>
+            <div class="save-addr-control-wrapper"></div>
+        </div>
+
+        <div class="addresses__list">
+            <div class="addresses__list__header">
+                <div class="addresses__list__header__title">ADDRESSES</div>
+                <div class="addresses__list__header__addr-type-selector">
+                    <app-dropdown (menuChanged)="dropdownSelected($event)" [(menuItems)]="menuItems"></app-dropdown>
+                </div>
+            </div>
+            <div class="addresses__list__items addresses-container" *ngIf="addresses$ | async as addresses">
+                <div class="address-item" *ngFor="let item of addresses">
+                    <app-address-element [item]="item"></app-address-element>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+ 
+    <ng-container *ngIf="isFullScreen">
+        <div class="addresses__content">
+            <div class="addresses__content__header"> Addresses </div>
+            <div class="addresses__content__selector">
+                <div class="selector" *ngFor="let item of menuItems" (click)="selectorItemClicked(item[i])">
+                    <div class="selector__title" [class.active]="item.selected">{{item[i].full}}</div>
+                    <div class="selector__bottom-line" *ngIf="item.selected"></div>
+                </div>
+            </div>
+            <div class="addresses__content__table" *ngIf="addresses$ | async as addresses">
+                <ng-container *ngIf="activeSelectorItem.id !== menuItems[2].id">
+                    <app-table *ngIf="addresses.length > 0" 
+                        [tableType]="tableType"
+                        [tableColumns]="tableColumns" 
+                        [tableData]="addresses"></app-table>
+                </ng-container>
+                <ng-container *ngIf="activeSelectorItem.id === menuItems[2].id">
+                    <app-table *ngIf="addresses.length > 0" 
+                        [tableType]="contactsTableType"
+                        [tableColumns]="contactsTableColumns" 
+                        [tableData]="addresses"></app-table>
+                </ng-container>
+                
+                <ng-container *ngIf="addresses.length === 0">
+                    <div class="addresses__content__empty">
+                        <img class="addresses__content__empty__icon" [src]="iconContactsEmpty">
+                        <div class="addresses__content__empty__text">
+                            {{activeSelectorItem === menuItems[2] ? 
+                            'Your contacts list is empty' : 
+                            'Your addresses list is empty'}}
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </ng-container>
+    
+    <div class="addresses__top-gradient"></div>
+</div>

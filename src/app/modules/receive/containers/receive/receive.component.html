@@ -1,0 +1,100 @@
+<div class="receive" [class.blur-filter]="!isFullScreen && (modalOpened || popupOpened)">
+    <ng-container *ngIf="!isFullScreen">
+        <div class="receive__header">
+            <div class="menu-control-wrapper">
+                <img class="receive__header__menu" (click)="backClicked($event)" [src]="iconBack"/>
+            </div>
+            <div class="title-wrapper">
+                <div class="receive__header__title">RECEIVE</div>
+            </div>
+            <div class="save-addr-control-wrapper"></div>
+        </div>
+
+        <div class="receive__content" *ngIf="generatedAddress.length > 0">
+            <div class="content-header token-header">MY ADDRESS (auto-generated)</div>
+            <div class="address-value">{{generatedToken}}</div>
+            <form class="receive-form-cl" [formGroup]="receiveForm" autocomplete="off" novalidate (ngSubmit)="submit()">
+                <div class="form-group">
+                    <div class="receive__content__amount-header content-header">REQUESTED AN AMOUNT (optional)</div>
+                    <input class="receive__content__amount"
+                                (input)="amountUpdated(receiveForm.get('amount'))"
+                                name="amount" formControlName="amount"
+                                appNumbersOnly
+                                placeholder="Enter amount"/>
+                    <span class="receive__content__beam">BEAM</span>
+                </div>
+                <div class="form-group">
+                    <div class="receive__content__comment-header content-header">TRANSACTION COMMENT</div>
+                    <input class="receive__content__comment"
+                                name="comment" formControlName="comment" 
+                                placeholder="Enter comment"/>
+                </div>
+            </form>
+            <div class="receive__content__info">For the transaction to complete, you should get online 
+                during the 12 hours after Beams are sent.</div>
+            <div class="receive__content__controls">
+                <!-- <div class="receive__content__button-qr">
+                    <app-button class="qr-button" (click)="qrShowClicked($event)">show QR</app-button>
+                </div> -->
+                <div class="receive__content__button-copy">
+                    <app-button class="copy-button" ngxClipboard [cbContent]="generatedToken" (click)="backClicked($event)">
+                        copy transaction address
+                    </app-button>
+                </div>
+            </div>
+        </div>
+
+        <div class="receive__top-gradient"></div>
+    </ng-container>
+
+    <ng-container *ngIf="isFullScreen">
+        <div class="receive__container">
+            <div class="receive__container__header">
+                <div class="receive__container__header__title">Receive</div>
+            </div>
+            <div class="receive__container__content" *ngIf="generatedAddress.length > 0">
+                <div class="receive__container__content__address">
+                    <div class="content-header token-header">MY ADDRESS (auto-generated)</div>
+                    <div class="address-value">{{generatedToken}}</div>
+                    <form class="receive-form-cl" [formGroup]="receiveForm" autocomplete="off" novalidate (ngSubmit)="submit()">
+                        <div class="form-group">
+                            <div class="form-header content-header">REQUESTED AN AMOUNT (optional)</div>
+                            <input class="amount-input" (input)="amountUpdated(receiveForm.get('amount'))"
+                                        appNumbersOnly
+                                        name="amount" formControlName="amount" 
+                                        placeholder="Enter amount"/>
+                            <span class="beam-currency">BEAM</span>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-header content-header">TRANSACTION COMMENT</div>
+                            <input class="comment-input" name="comment" formControlName="comment"
+                                        (input)="updateComment(receiveForm.get('comment'))" 
+                                        placeholder="Enter comment"/>
+                        </div>
+                    </form>
+                </div>
+                <!-- <div class="receive__container__content__qr">
+                    <qrcode class="receive__container__content__qr__value" 
+                            [qrdata]="qrCode" 
+                            [width]="200" [errorCorrectionLevel]="'M'"></qrcode>
+                </div> -->
+            </div>
+            <div class="receive__container__bottom">
+                <div class="receive__container__bottom__info">For the transaction to complete, you should get online 
+                    during the 12 hours after Beams are sent.</div>
+                <div class="receive__container__bottom__controls">
+                    <div class="receive__container__bottom__controls__button-back">
+                        <app-button class="qr-button" (click)="backClicked($event)">back</app-button>
+                    </div>
+                    <div class="receive__container__bottom__controls__button-copy">
+                        <app-button class="copy-button" ngxClipboard [cbContent]="generatedToken" (click)="backClicked($event)">
+                            copy transaction address
+                        </app-button>
+                    </div>
+                </div>  
+            </div>
+        </div>
+        <div class="receive__top-gradient"></div>
+    </ng-container>
+</div>
+

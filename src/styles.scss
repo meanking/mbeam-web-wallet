@@ -1,0 +1,121 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+
+// body {
+//     overflow: hidden;
+//     margin: 0;
+//     padding: 0;
+// }
+
+@font-face {
+  font-family: "ProximaNova";
+  src: url("./assets/fonts/ProximaNova-Regular.ttf");
+}
+
+@font-face {
+  font-family: "SFProDisplayRegular";
+  src: url("./assets/fonts/SFProDisplay-Regular.ttf");
+}
+
+@font-face {
+  font-family: "SFProDisplayBold";
+  src: url("./assets/fonts/SFProDisplay-Bold.ttf");
+}
+
+@font-face {
+  font-family: "SFProDisplayItalic";
+  src: url("./assets/fonts/SFProDisplay-RegularItalic.ttf");
+}
+
+@font-face {
+  font-family: "SFUIDisplay-Medium";
+  src: url("./assets/fonts/SFUIDisplay-Medium.otf");
+}
+
+@font-face {
+  font-family: "ProximaNovaIT";
+  src: url("./assets/fonts/ProximaNova-RegularIt.ttf");
+}
+
+@font-face {
+  font-family: "ProximaNovaSemibold";
+  src: url("./assets/fonts/ProximaNova-Semibold.ttf");
+}
+
+@font-face {
+  font-family: "ProximaNovaBold";
+  src: url("./assets/fonts/ProximaNova-Bold.ttf");
+}
+
+* {
+  outline: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  // sass-lint:disable no-vendor-prefixes
+    -ms-overflow-style: scrollbar; //  1
+    -ms-text-size-adjust: 100%; // 2
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); // 3
+    box-sizing: border-box;
+    font-size: 16px;
+
+    &,
+    body {
+        width: 100%;
+        position: relative;
+    }
+
+    
+    @media (min-width: 400px) {
+      &,
+      body {
+        height: 100%;
+      }
+    }
+
+    body {
+        background-color: #fff;
+        color: #333;
+        font-size: inherit;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.2;
+        margin: 0 auto;
+        min-width: 375px;
+        //noinspection CssUnknownProperty
+        overflow-anchor: none;
+        text-align: left;
+    }
+}
+
+body {
+  overflow-y: overlay;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 9px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .5);
+    border: 3px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+}

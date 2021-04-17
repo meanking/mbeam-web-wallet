@@ -1,0 +1,31 @@
+<div class="server" [class.blur-filter]="popupOpened">
+    <div class="server__header">
+        <div class="menu-control-wrapper">
+            <img class="server__header__menu" (click)="backClicked($event)" [src]="iconBack"/>
+        </div>
+        <div class="title-wrapper">
+            <div class="server__header__title">SERVER</div>
+        </div>
+        <div class="save-addr-control-wrapper">
+        </div>
+    </div>
+
+    <div class="server__container">
+        <div class="server__container__dns" (click)="enterDnsClicked($event)">
+            <span class="server-item-title">dns/ip</span>
+            <span class="server-item-value" 
+                    *ngIf="dnsSetting$ | async as dnsSetting">
+                {{dnsSetting}}
+            </span>
+        </div>
+        <div class="server__container__ip" (click)="enterIpClicked($event)">
+            <span class="server-item-title">ip:port</span>
+            <span class="server-item-value"
+                    *ngIf="ipSetting$ | async as ipSetting">
+                {{ipSetting}}
+            </span>
+        </div>
+    </div>
+    
+    <div class="server__top-gradient"></div>
+</div>

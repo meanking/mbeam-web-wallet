@@ -1,0 +1,274 @@
+<div class="example-container">
+    <mat-table #table [dataSource]="dataSource">
+      <!-- transactions table -->
+      <ng-container matColumnDef="created">
+        <mat-header-cell *matHeaderCellDef [class.active]="activeSortItem === sortParams.created"
+            (click)="sortClicked(sortParams.created)">
+          <span>Created on</span>
+          <img class="sort-icon" [src]="activeSortItem === sortParams.created ? iconSortActive : iconSort">
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.create_time * 1000 | date:'d MMM y | HH:mm'}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="from">
+        <mat-header-cell *matHeaderCellDef [class.active]="activeSortItem === sortParams.from"
+            (click)="sortClicked(sortParams.from)">
+          <span>From</span> 
+          <img class="sort-icon" [src]="activeSortItem === sortParams.from ? iconSortActive : iconSort">
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{(element.sender | slice:0:6)+'...'+(element.sender | slice:-6)}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="to">
+        <mat-header-cell *matHeaderCellDef [class.active]="activeSortItem === sortParams.to"
+            (click)="sortClicked(sortParams.to)"> 
+          <span>To</span>
+          <img class="sort-icon" [src]="activeSortItem === sortParams.to ? iconSortActive : iconSort">
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{(element.receiver | slice:0:6)+'...'+(element.receiver | slice:-6)}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef [class.active]="activeSortItem === sortParams.amount"
+            (click)="sortClicked(sortParams.amount)"> 
+          <span>Amount</span>
+          <img class="sort-icon" [src]="activeSortItem === sortParams.amount ? iconSortActive : iconSort">
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="amount-cell" appStatusColor [appStatusColorTransaction]="element">
+            <ng-container *ngIf="!privacy">
+              <ng-container>{{getValueSign(element)}}</ng-container>
+              {{ element.value | beam:'1.0-9'}} BEAM
+            </ng-container>
+            <ng-container *ngIf="privacy">
+              <img [src]="iconEnabledPrivacy">
+            </ng-container>
+        </mat-cell>
+      </ng-container>
+
+      <!-- addresses table -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef [class.active]="activeSortItem === sortParams.name"
+        (click)="sortClicked(sortParams.name)"> 
+          Name
+          <img class="sort-icon" [src]="activeSortItem === sortParams.name ? iconSortActive : iconSort">
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.comment.length > 0 ? element.comment : 'No name'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef [class.active]="activeSortItem === sortParams.address"
+          (click)="sortClicked(sortParams.address)"> 
+          Address
+          <img class="sort-icon" [src]="activeSortItem === sortParams.address ? iconSortActive : iconSort">
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="address-cell"> 
+          <div tooltip="Copy address to clipboard" tooltip-class="copy-tooltip" 
+              placement="bottom" show-delay="200"
+              (click)="$event.stopPropagation()"
+              ngxClipboard [cbContent]="element.address">
+            {{(element.address | slice:0:6)+'...'+(element.address | slice:-6)}}
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="expiration">
+        <mat-header-cell *matHeaderCellDef [class.active]="activeSortItem === sortParams.exp_date"
+          (click)="sortClicked(sortParams.exp_date)">
+          Expiration date
+          <img class="sort-icon" [src]="activeSortItem === sortParams.exp_date ? iconSortActive : iconSort">
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{ element.create_time * 1000 | date:'d MMM y | HH:mm'}}  </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef [class.active]="activeSortItem === sortParams.status"
+            (click)="sortClicked(sortParams.status)"> 
+          <span>Status</span>
+          <img class="sort-icon" [src]="activeSortItem === sortParams.status ? iconSortActive : iconSort">
+        </mat-header-cell>
+        <mat-cell class="status-cell" appStatusColor [appStatusColorTransaction]="element" *matCellDef="let element">
+          <app-status-icon [transaction]="element"></app-status-icon>
+          <span class="status-cell__value">{{ getStatus(element) }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- contacts table -->
+      <ng-container matColumnDef="contactName">
+        <mat-header-cell *matHeaderCellDef 
+                        [class.active]="activeSortItem === sortParams.contactName"
+                        (click)="sortClicked(sortParams.contactName)"> 
+          Name 
+          <img class="sort-icon" [src]="activeSortItem === sortParams.contactName ? iconSortActive : iconSort">
+        </mat-header-cell>
+        <mat-cell class="status-cell" *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+
+      <!-- utxos table -->
+      <ng-container matColumnDef="utxo_status">
+        <mat-header-cell *matHeaderCellDef
+                        [class.active]="activeSortItem === sortParams.status"
+                        (click)="sortClicked(sortParams.status)"> 
+          Status 
+          <img class="sort-icon" [src]="activeSortItem === sortParams.status ? iconSortActive : iconSort">
+        </mat-header-cell>
+        <mat-cell class="status-cell" *matCellDef="let element"> {{element.status_string}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="utxo_maturity">
+        <mat-header-cell *matHeaderCellDef 
+                        [class.active]="activeSortItem === sortParams.maturity"
+                        (click)="sortClicked(sortParams.maturity)">
+          Maturity 
+          <img class="sort-icon" [src]="activeSortItem === sortParams.maturity ? iconSortActive : iconSort">
+        </mat-header-cell>
+        <mat-cell class="utxo-cell" *matCellDef="let element">
+          {{element.status_string === utxoStatusesConsts.INCOMING || 
+            element.status_string === utxoStatusesConsts.INCOMING ? '-' : element.maturity}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="utxo_amount">
+        <mat-header-cell *matHeaderCellDef 
+                        [class.active]="activeSortItem === sortParams.utxo_amount"
+                        (click)="sortClicked(sortParams.utxo_amount)">
+          Amount 
+          <img class="sort-icon" [src]="activeSortItem === sortParams.utxo_amount ? iconSortActive : iconSort">
+        </mat-header-cell>
+        <mat-cell class="utxo-cell" *matCellDef="let element"> {{ element.amount | beam:'1.0-9'}} BEAM </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="utxo_type">
+        <mat-header-cell *matHeaderCellDef
+                        [class.active]="activeSortItem === sortParams.utxo_type"
+                        (click)="sortClicked(sortParams.utxo_type)">
+          Type
+          <img class="sort-icon" [src]="activeSortItem === sortParams.utxo_type ? iconSortActive : iconSort">
+        </mat-header-cell>
+        <mat-cell class="utxo-cell" *matCellDef="let element">
+          {{element.type === 'norm' ? 'regular' : 'change'}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <app-table-actions class="table-actions" 
+                            [tableType]="tableType === tableTypesConsts.TRANSACTIONS ? 
+                              (isActionsVisible(element) ? tableType : tableTypes.TRANSACTIONS_NOT_SENT) :
+                              tableType" 
+                            [element]="element"></app-table-actions>
+
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="expandedDetail">
+        <mat-cell *matCellDef="let detail">
+          <ng-container *ngIf="tableType !== 'contacts'">
+
+          </ng-container>
+
+          <ng-container *ngIf="tableType === tableTypes.TRANSACTIONS">
+              <div class="tr-details" *ngIf="expandedElement">
+                <div class="tr-details__info">
+                  <div class="tr-details__info__header">DETAILS</div>
+                  <div class="details-title">DATE</div>
+                  <div class="details-value">{{detail.element.create_time * 1000 | date:'d MMM y | HH:mm'}}</div>
+                  <ng-container *ngIf="detail.element.token !== undefined && detail.element.token.length > 0">
+                    <div class="details-title">ADDRESS</div>
+                    <div class="details-value">{{detail.element.token}}</div>
+                  </ng-container>
+                  <div class="details-title">SENDING ADDRESS</div>
+                  <!-- <ng-container *ngIf="contact$ | async as contact">
+                    <div class="details-contact" *ngIf="detail.element.income">
+                      <img [src]="contactIcon" class="details-contact__icon">
+                      <div class="details-contact__name">{{contact.name}}</div>
+                    </div>
+                  </ng-container> -->
+                  <div class="details-value">{{detail.element.sender}}</div>
+                  <div class="details-title">RECEIVING ADDRESS</div>
+                  <ng-container *ngIf="contact$ | async as contact">
+                    <div class="details-contact" *ngIf="!detail.element.income">
+                      <img [src]="contactIcon" class="details-contact__icon">
+                      <div class="details-contact__name">{{contact.name}}</div>
+                    </div>
+                  </ng-container>
+                  <div class="details-value">{{detail.element.receiver}}</div>
+                  <div class="details-title">TRANSACTION FEE</div>
+                  <div class="details-value">{{detail.element.fee}} GROTH</div>
+                  <ng-container *ngIf="detail.element.comment !== undefined && detail.element.comment.length > 0">
+                    <div class="details-title">TRANSACTION COMMENT</div>
+                    <div class="details-value">{{detail.element.comment}}</div>
+                  </ng-container>
+                  <div class="details-title">TRANSACTION ID</div>
+                  <div class="details-value">{{detail.element.txId}}</div>
+                  <div class="details-title">KERNEL ID</div>
+                  <div class="details-value">{{detail.element.kernel}}</div>
+                </div>
+                <div class="tr-details__specs" *ngIf="detail.element.status_string === 'sent'">
+                  <div class="tr-details__specs__utxo" *ngIf="!privacy">
+                    <div class="tr-details__specs__utxo__header" (click)='utxoListHeaderClicked($event)'>
+                      <span>TRANSACTION UTXO LIST</span>
+                      <img class="tr-details__specs__utxo__header__icon" 
+                        [class.list-visible]="!isUtxoListVisible" [src]="arrowIcon">
+                    </div>
+                    <ng-container *ngIf="isUtxoListVisible">
+                      <div class="tr-details__specs__utxo__list" *ngIf="utxoList$ | async as utxoList">
+                        <div *ngFor="let item of utxoList">
+                          <div class="tr-details__specs__utxo__list__item">
+                            <img [src]="item.status_string === 'spent' ? sentIcon : receivedIcon">
+                            <span class="tr-details__specs__utxo__list__item__value"> 
+                              {{ item.amount | beam:'1.0-9'}} BEAM
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                  <div class="tr-details__specs__proof">
+                    <div class="tr-details__specs__proof__header">PAYMENT PROOF</div>
+                    <div class="tr-details__specs__proof__controls">
+                      <div class="tr-details__specs__proof__controls__details">
+                        <app-button (click)="proofDetailsClicked($event)">details</app-button>
+                      </div>
+                      <div class="tr-details__specs__proof__controls__copy">
+                          <app-button ngxClipboard [cbContent]="proofDataToCp()">copy</app-button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </ng-container>
+          <ng-container *ngIf="tableType === 'addresses'">
+            <div class="details" *ngIf="expandedElement">
+                <div class="details__header">TRANSACTION LIST</div>
+                <div class="details__list">
+                  <app-transaction-list [address]="expandedElement.address"></app-transaction-list>
+                </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="tableType === 'utxo'">
+            <div class="details" *ngIf="expandedElement">
+                <div class="details__header">DETAILS</div>
+                <div class="details__subheader">ID</div>
+                <div class="details__value">{{expandedElement.id}}</div>
+                <div class="details__list">
+                  <app-transaction-list 
+                    [txId]="expandedElement.createTxId !== undefined && expandedElement.createTxId.length > 0 ? expandedElement.createTxId : expandedElement.spentTxId">
+                  </app-transaction-list>
+                </div>
+            </div>
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+  
+      <mat-header-row class="table-header" *matHeaderRowDef="tableColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: tableColumns;"
+              matRipple 
+              class="element-row" 
+              [class.expanded]="expandedElement == row"
+              (click)="expandElement(row)"></mat-row>
+      <mat-row class="row-details" *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
+              [@detailExpand]="getExpandedState(row.element)"> 
+      </mat-row>
+    </mat-table>
+</div>

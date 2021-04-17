@@ -1,0 +1,75 @@
+<div class="send">
+    <div class="send__header">
+        <div class="back-control-wrapper">
+            <img class="send__header__back" (click)="backAddressesClicked()" [src]="iconBack"/>
+        </div>
+        <div class="title-wrapper">
+            <div class="send__header__title">SEND</div>
+        </div>
+        <div class="right-wrapper"></div>
+    </div>
+    <div class="send__progress">
+        <span class="send__progress__full"></span>
+        <span class="send__progress__full"></span>
+        <span class="send__progress__empty"></span>
+    </div>
+    <div class="send__container">
+        <div class="send__container__content">
+            <form class="send-form-cl" [formGroup]="sendForm" autocomplete="off" novalidate>
+                <div class="send__container__content__title-amount">AMOUNT</div>
+                <div class="form-group">
+                    <input class="send__container__content__input"
+                        name="amount" formControlName="amount"
+                        (input)="amountChanged($event.target.value)"
+                        appNumbersOnly
+                        [class.incorrect-amount]="localParams.isNotEnoughAmount"
+                        placeholder="Enter amount"/>
+                    <span class="send__container__content__currency">BEAM</span>
+                </div>
+                <div class="send__container__content__amount-validator" *ngIf="localParams.isNotEnoughAmount">
+                    Insufficient funds: you would need {{localParams.notEnoughtValue.toFixed()}} BEAM to complete the transaction
+                </div>
+                <div class="send__container__content__title-fee">TRANSACTION FEE</div>
+                <div class="form-group">
+                    <input class="send__container__content__input-groth"
+                        name="fee" formControlName="fee" type="text"
+                        (input)="feeChanged($event.target.value)"
+                        [class.incorrect]="!localParams.feeIsCorrect"
+                        placeholder="Enter fee"/>
+                    <span class="send__container__content__currency">GROTH</span>
+                    <div class="send__container__content__fee-validator" *ngIf="localParams.minFeeIsNotCorrect">
+                        The minimum fee is 100000 GROTH
+                    </div>
+                </div>
+                <ng-container *ngIf="walletStatus$ | async as walletStatus">
+                    <div class="total" *ngIf="walletStatus.available > 0">
+                        <div class="total__container">
+                            <div class="total__container__header">TOTAL AVAILABLE</div>
+                            <div class="total__container__value">{{walletStatus.available | beam:'1.0-9'}} BEAM</div>
+                        </div>
+                        <div class="total__add-all">
+                            <app-button class="add-all-button" (click)="addAllClicked($event)">add all</app-button>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="send__container__content__title-fee">TRANSACTION COMMENT</div>
+                <div class="form-group">
+                    <input class="send__container__content__input-comment"
+                         name="comment" formControlName="comment" 
+                        placeholder="Enter comment"/>
+                </div>
+                <div class="send__container__content__info">
+                    For the transaction to complete, the recipient must get 
+                    online within the next 12 hours and you should get 
+                    online within 2 hours afterwards.
+                </div>
+                <div class="controls">
+                    <app-button class="controls__button"
+                        [class.disabled]="!localParams.isSendDataValid"
+                        (click)="submit()">next</app-button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="send__top-gradient"></div>
+</div>

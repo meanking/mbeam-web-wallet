@@ -1,0 +1,29 @@
+<div class="transaction" (click)="transactionClicked()">
+    <div class="transaction__common">
+        <div class="transaction__common__top-content">
+            <app-status-icon [(transaction)]="transaction"></app-status-icon>
+            <span class="transaction__common__top-content__text">
+                {{transaction.income ? 'Receive' : 'Send'}}
+            </span>
+            <app-table-actions class="transaction__common__top-content__actions"
+                               *ngIf="isActionsVisible()"
+                               [tableType]="tableTypesConsts.TRANSACTIONS" 
+                               [element]="transaction"></app-table-actions>
+            <app-table-actions class="transaction__common__top-content__actions"
+                               *ngIf="!isActionsVisible()"
+                               [tableType]="tableTypesConsts.TRANSACTIONS_NOT_SENT" 
+                               [element]="transaction"></app-table-actions>
+        </div>
+        <div class="transaction__common__mid-content" appStatusColor [appStatusColorTransaction]="transaction">
+            <div class="transaction__common__mid-content__status">{{getStatus(transaction)}}</div>
+            <div class="transaction__common__mid-content__value" *ngIf="!privacyMode">
+                <ng-container>{{getValueSign()}}</ng-container>
+                 {{ transaction.value | beam:'1.0-9'}} BEAM</div>
+        </div>
+        <div class="transaction__common__created">{{transaction.create_time * 1000 | date:'d MMM y | HH:mm'}}</div>
+        <div class="tr-comment" *ngIf="!isCommentDefault(transaction.comment) && transaction.comment.length > 0">
+            <img class="tr-comment__icon" [src]="iconComment"/>
+            <span class="tr-comment__text">"{{transaction.comment}}"</span>
+        </div>
+    </div>
+</div>

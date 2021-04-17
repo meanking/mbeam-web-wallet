@@ -1,0 +1,64 @@
+<div class="confirm" [class.blur-filter]="!componentSettings.isFullScreen && componentSettings.popupOpened">
+    <ng-container *ngIf="!componentSettings.isFullScreen">
+        <div class="confirm__header">
+            <div class="menu-control-wrapper">
+                <img class="confirm__header__menu" (click)="backClicked($event)" [src]="iconBack"/>
+            </div>
+            <div class="title-wrapper">
+                <div class="confirm__header__title">CONFIRM SEED PHRASE</div>
+            </div>
+            <div class="save-addr-control-wrapper"></div>
+        </div>
+
+        <div class="confirm__subtitle">
+            To ensure the seed phrase is written down correctly, please fill in the specific words below
+        </div>
+    
+        <div class="confirm__mid-content">
+            <div class="confirm__mid-content__item" *ngFor="let item of seedStateToConfirm">
+                <div class="confirm__mid-content__item__circle"
+                    [class.error]="item.inProgress && !item.confirmed"
+                    [class.confirmed]="!item.inProgress && item.confirmed"> {{item.index + 1}} </div>
+                <input class="confirm__mid-content__item__input" 
+                    [class.error]="item.inProgress && !item.confirmed"
+                    (input)="wordInputUpdated($event, item)" type="text"/>
+            </div>
+        </div>
+        <div class="confirm__bottom-content">
+            <app-button class="confirm__bottom-content__next-button"
+                        [class.disabled]="!seedConfirmed"
+                        (click)="nextClicked()">
+                next
+            </app-button>
+        </div>
+        <div class="confirm__top-gradient"></div>
+    </ng-container>
+    <ng-container *ngIf="componentSettings.isFullScreen">
+        <div class="confirm__top-content">
+            <div class="confirm__top-content__header">Confirm seed phrase</div>
+            <div class="confirm__top-content__text">
+                To ensure the seed phrase is written down correctly, please fill in the specific words below
+            </div>
+        </div>
+        <div class="confirm__mid-content">
+            <div class="confirm__mid-content__item" *ngFor="let item of seedStateToConfirm">
+                <div class="confirm__mid-content__item__circle"
+                     [class.error]="item.inProgress && !item.confirmed"
+                     [class.confirmed]="!item.inProgress && item.confirmed"> {{item.index + 1}} </div>
+                <input class="confirm__mid-content__item__input" 
+                       [class.error]="item.inProgress && !item.confirmed"
+                       (input)="wordInputUpdated($event, item)" type="text"/>
+            </div>
+        </div>
+        <div class="confirm__bottom-content">
+            <app-button class="confirm__bottom-content__back-button" (click)="backClicked($event)">back</app-button>
+            <app-button class="confirm__bottom-content__next-button"
+                        [class.disabled]="!seedConfirmed"
+                        (click)="nextClicked()">
+                next
+            </app-button>
+        </div>
+    </ng-container>
+</div>
+
+<div *ngIf="componentSettings.isFullScreen && componentSettings.popupOpened" class="full-popup-opened"></div>

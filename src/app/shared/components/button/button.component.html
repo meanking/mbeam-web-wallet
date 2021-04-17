@@ -1,0 +1,14 @@
+<button
+  class="ui-button"
+  [type]="type"
+  [disabled]="disabled"
+  #button
+>
+  <span class="ui-button__inner-wrapper">
+    <div class="ui-button__icon"></div>
+    <span class="ui-button__text">
+      <ng-content>
+      </ng-content>
+    </span>
+  </span>
+</button>

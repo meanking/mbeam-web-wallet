@@ -1,0 +1,217 @@
+@import 'ui-mixins';
+@import './styles';
+
+:host {
+    flex: 1 0 auto;
+    background-color: #042548;
+}
+
+.container {
+    height: 100%;
+}
+
+.background {
+    position: absolute;
+    overflow: hidden;
+    height: calc(100% - 70px);
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+
+    &__bg {
+        width: 100%;
+    }
+}
+
+.login {
+    min-height: 530px;
+    display: flex;
+    flex-direction: column;
+
+    &__top-gradient {
+        position: absolute;
+        width: 100%;
+        height: 100px;
+        background: linear-gradient(to top, rgba(3, 91, 143, 0), #035b8f);
+        z-index: 1;
+    }
+    
+    &__logo {
+        width: 100px;
+        height: 88px;
+        margin: 70px auto 0 auto;
+        z-index: 10;
+    }
+
+    &__header-text {
+        @include normal-text;
+        margin-top: 50px;
+        font-family: 'ProximaNova', sans-serif;
+        font-size: 14px;
+        text-align: center;
+        color: #ffffff;
+        z-index: 10;
+    }
+
+    &__subheader-text {
+        @include normal-text;
+        margin: 20px auto 0 auto;
+        font-family: 'ProximaNova', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: .6px;
+        color: #25c1ff;
+        z-index: 10;
+    }
+
+    &__container {
+        margin-top: 30px;
+        display: flex;
+        align-self: center;
+        z-index: 10;
+
+        &__input {
+            @include normal-text;
+            background: rgba(255, 255, 255, 0);
+            font-family: 'ProximaNova', sans-serif;
+            border: none;
+            width: 291px;
+            border-bottom: 2px solid #00f6d2;
+            font-size: 14px;
+            color: #ffffff;
+            resize:none;
+            padding: 5px;
+            max-height: 40px;
+        }
+
+        &__input:focus {
+            @include normal-text;
+            font-family: 'ProximaNova', sans-serif;
+            outline-width: 0;
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        &__input::placeholder {
+            @include normal-text;
+            font-family: 'ProximaNova', sans-serif;
+            font-size: 14px;
+            color: rgba(255, 255, 255, .3);
+        }
+
+        &__input.incorrect {
+            border-bottom: 2px solid #ff625c;
+            color: #ff625c;
+        }
+
+        &__input.incorrect::placeholder,
+        &__input.incorrect:focus {
+            color: #ff625c;
+        }
+
+        &__validator {
+            @include normal-text;
+            margin-top: 5px;
+            font-family: 'ProximaNova', sans-serif;
+            font-size: 13px;
+            height: 16px;
+            line-height: 1.23;
+            color: #ff625c;
+        }
+    }
+
+    &__controls {
+        text-align: center;
+        margin: auto auto 0 auto;
+        z-index: 10;
+        
+        @include ui-button($btn-open-wallet, $btn-lg) {
+            font-size: 14px;
+            width: 253px;
+            height: 44px;
+        }
+
+        @include ui-button-open-wallet-icon()
+    }
+
+    &__restore {
+        margin-top: 20px;
+        margin-bottom: auto;
+        height: 18px;
+        @include normal-text;
+        font-family: 'ProximaNova', sans-serif;
+        font-size: 14px;
+        text-align: center;
+        z-index: 10;
+        font-weight: bold;
+        cursor: pointer;
+        color: #00f6d2;
+    }
+}
+
+.container.blur-filter {
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
+}
+
+.full-popup-opened {
+    background-color: rgba(4, 37, 72, .5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+}
+
+@media (min-width: 400px) {
+    .background {
+        height: calc(100% - 20px);
+    }
+    
+    .login {
+       height: 100%;
+
+        &__logo {
+           width: 242px;
+           height: 210px;
+           margin: 120px auto 0 auto;
+        }
+
+        &__header-text {
+            margin: auto auto 0 auto;
+        }
+
+        &__container {
+            margin-top: 30px;
+        }
+
+        &__controls {
+            margin: 30px auto 0 auto;
+
+            @include ui-button($btn-open-wallet, $btn-lg) {
+                width: 192px;
+                height: 38px;
+                font-size: 14px;
+            }
+
+            @include ui-button-open-wallet-icon()
+        }
+
+        &__controls.incorrect {
+            margin-top: 12px;
+        }
+
+        &__restore {
+            margin-bottom: 85px;
+        }
+
+        &__subheader-text {
+            margin: 37px auto 0 auto;
+            font-size: 18px;
+        }
+    }
+}

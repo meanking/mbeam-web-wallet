@@ -1,0 +1,33 @@
+<div class="send" [class.blur-filter]="popupOpened">
+    <div class="send__header">
+        <div class="back-control-wrapper">
+            <img class="send__header__back" (click)="backAmountClicked()" [src]="iconBack"/>
+        </div>
+        <div class="title-wrapper">
+            <div class="send__header__title">SEND</div>
+        </div>
+        <div class="right-wrapper"></div>
+    </div>
+    <div class="send__progress">
+        <span class="send__progress__full"></span>
+        <span class="send__progress__full"></span>
+        <span class="send__progress__full"></span>
+    </div>
+    <div class="send__container">
+        <div class="send__container__content">
+            <div class="send__container__content__send-to">TRANSACTION ADDRESS</div>
+            <div class="send__container__content__address">{{sendData.address}}</div>
+            <div class="send__container__content__amount">AMOUNT TO SEND</div>
+            <div class="send__container__content__amount-value">{{sendData.amount}} BEAM</div>
+            <div class="send__container__content__fee">TRANSACTION FEE</div>
+            <div class="send__container__content__fee-value">{{sendData.fee}} GROTH</div>
+            <div class="send__container__content__info">For the transaction to complete, the recipient must get 
+                online within the next 12 hours and you should get 
+                online within 2 hours afterwards.</div>
+            <div class="send__container__content__button">
+                <app-button class="send-button" (click)="submit($event)">send</app-button>
+            </div>
+        </div>
+    </div>
+    <div class="send__top-gradient"></div>
+</div>

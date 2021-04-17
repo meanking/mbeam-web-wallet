@@ -1,0 +1,11 @@
+<div class="side-menu" id="sidemenu" appClickOutside (clickOutside)="clickOutside($event)">
+    <img class="side-menu__close" (click)="closeMenu()" [src]="iconClose"/>
+    <div class="side-menu__items" routerLinkActive="active">
+        <div class="side-menu__items__item menu-item" *ngFor="let item of menuItems" 
+            [routerLink]="item.path" (mouseover)="item.src = item.srcOn"
+                (mouseout)="item.src = item.srcOut"> 
+            <img class="menu-item-icon" [src]="item.src || item.srcOut"/>
+            <span class="menu-item-text">{{item.title}}</span>
+        </div>
+    </div>
+</div>
